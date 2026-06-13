@@ -1,5 +1,5 @@
 ﻿using GimnasioFC.Core;
-
+ 
 namespace GimnasioFC.Models
 {
     public class Coach : BasePerson
