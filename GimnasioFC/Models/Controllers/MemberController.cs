@@ -3,7 +3,7 @@ using GimnasioFC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GimnasioFC.DTOs;
-namespace GimnasioFC.Controllers
+namespace GimnasioFC.Controllers 
 {
     [Route("api/[controller]")]
     [ApiController]

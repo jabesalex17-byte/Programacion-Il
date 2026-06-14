@@ -1,7 +1,7 @@
 ﻿using GimnasioFC.Data;
 using GimnasioFC.Models;
 using GimnasioFC.DTOs;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
 
 namespace GimnasioFC.Controllers
 {
