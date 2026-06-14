@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Logging.Abstractions;
-
+ 
 var builder = WebApplication.CreateBuilder(args);
  
 builder.Services.AddControllers();
