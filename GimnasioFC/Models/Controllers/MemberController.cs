@@ -3,18 +3,26 @@ using GimnasioFC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GimnasioFC.DTOs;
-namespace GimnasioFC.Controllers 
+using Microsoft.EntityFrameworkCore;
+namespace GimnasioFC.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MemberController : ControllerBase
     {
 
-         
-        [HttpGet]
-        public ActionResult<IEnumerable<MemberDTOs>> GetMembers()
+        private readonly DbContextGimnasioFC _db;
+
+        public MemberController (DbContextGimnasioFC db)
         {
-            var members = ListProgram.Members.AsReadOnly();
+            _db = db;
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberDTOs>>> GetMembers()
+        {
+            var members = await _db.Members.AsNoTracking().ToListAsync();
             return Ok(members.Select(x => new MemberDTOs
             {
                 Id = x.Id,
@@ -25,19 +33,19 @@ namespace GimnasioFC.Controllers
                 PhoneNumber = x.PhoneNumber,
                 IsActive = x.IsActive,
                 EnrollmentDate = x.EnrollmentDate
-                
+
 
             }));
         }
 
         [HttpPost]
-        public ActionResult AddMember(MemberDTOs member)
+        public async Task<ActionResult> AddMember(MemberDTOs member)
         {
-            if(member is null)
+            if (member is null)
             {
                 return NotFound();
             }
-            member.Id = ListProgram.Id++;
+            
 
             var newMember = new Member
             {
@@ -51,36 +59,39 @@ namespace GimnasioFC.Controllers
                 IsActive = member.IsActive
 
             };
-            ListProgram.Members.Add(newMember);
+            await _db.Members.AddAsync(newMember);
+            await _db.SaveChangesAsync();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteMember(int id)
+        public async Task<ActionResult> DeleteMember(int id)
         {
 
-            var member = ListProgram.Members.FirstOrDefault(m => m.Id == id);
+            var member = await _db.Members.FindAsync(id);
             if (member is null)
             {
                 return NotFound();
             }
 
-            ListProgram.Members.Remove(member);
+            
 
+             _db.Members.Remove(member);
+            await _db.SaveChangesAsync();
             return NoContent();
 
         }
 
         [HttpPut("{id}")]
 
-        public ActionResult UpdateMember(int id, MemberDTOs newMember)
+        public async Task<ActionResult> UpdateMember(int id, MemberDTOs newMember)
         {
-            var member = ListProgram.Members.FirstOrDefault(m => m.Id == id);
+            var member = await _db.Members.FindAsync(id);
             if (member is null)
             {
                 return NotFound();
             }
-            
+
             member.FirstName = newMember.FirstName;
             member.LastName = newMember.LastName;
             member.Age = newMember.Age;
@@ -89,6 +100,7 @@ namespace GimnasioFC.Controllers
             member.IsActive = newMember.IsActive;
             member.EnrollmentDate = newMember.EnrollmentDate;
 
+            await _db.SaveChangesAsync();
             return NoContent();
 
 
