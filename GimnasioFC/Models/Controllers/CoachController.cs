@@ -1,7 +1,8 @@
 ﻿using GimnasioFC.Data;
-using GimnasioFC.Models;
 using GimnasioFC.DTOs;
-using Microsoft.AspNetCore.Mvc; 
+using GimnasioFC.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GimnasioFC.Controllers
 {
@@ -9,10 +10,19 @@ namespace GimnasioFC.Controllers
     [ApiController]
     public class CoachController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<CoachDTO>> GetCoaches()
+        private readonly DbContextGimnasioFC _db;
+
+        public CoachController(DbContextGimnasioFC db)
         {
-            var coaches = ListProgram.Coaches.AsReadOnly();
+            _db = db;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CoachDTO>>> GetCoaches()
+        {
+            var coaches = await _db.Coaches
+                .AsNoTracking()
+                .ToListAsync();
 
             return Ok(coaches.Select(x => new CoachDTO
             {
@@ -29,18 +39,15 @@ namespace GimnasioFC.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCoach(CoachDTO coach)
+        public async Task<ActionResult> AddCoach(CoachDTO coach)
         {
             if (coach is null)
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            coach.Id = ListProgram.cId++;
 
             var newCoach = new Coach
             {
-                Id = coach.Id,
                 FirstName = coach.FirstName,
                 LastName = coach.LastName,
                 Age = coach.Age,
@@ -51,30 +58,33 @@ namespace GimnasioFC.Controllers
                 IsActive = coach.IsActive
             };
 
-            ListProgram.Coaches.Add(newCoach);
+            await _db.Coaches.AddAsync(newCoach);
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteCoach(int id)
+        public async Task<ActionResult> DeleteCoach(int id)
         {
-            var coach = ListProgram.Coaches.FirstOrDefault(x => x.Id == id);
+            var coach = await _db.Coaches.FindAsync(id);
 
             if (coach is null)
             {
                 return NotFound();
             }
 
-            ListProgram.Coaches.Remove(coach);
+            _db.Coaches.Remove(coach);
+
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateCoach(int id, CoachDTO newCoach)
+        public async Task<ActionResult> UpdateCoach(int id, CoachDTO newCoach)
         {
-            var coach = ListProgram.Coaches.FirstOrDefault(x => x.Id == id);
+            var coach = await _db.Coaches.FindAsync(id);
 
             if (coach is null)
             {
@@ -89,6 +99,8 @@ namespace GimnasioFC.Controllers
             coach.HireDate = newCoach.HireDate;
             coach.Salary = newCoach.Salary;
             coach.IsActive = newCoach.IsActive;
+
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
