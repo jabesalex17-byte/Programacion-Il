@@ -4,7 +4,7 @@ using GimnasioFC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace GimnasioFC.Controllers
+namespace GimnasioFC.Controllers  
 {
     [Route("api/[controller]")]
     [ApiController]
