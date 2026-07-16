@@ -11,11 +11,9 @@ namespace GimnasioFC.Domain.Repository
     {
         public Task<IEnumerable<Coach>> GetAllCoach();
 
-        public Task<Coach?> GetCoachById(int id);
-
         public Task AddCoach(Coach coach);
 
-        public Task UpdateCoach(Coach coach);
+        public Task UpdateCoach(int id,Coach coach);
 
         public Task DeleteCoach(int id);
     }

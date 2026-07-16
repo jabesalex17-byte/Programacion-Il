@@ -12,11 +12,9 @@ namespace GimnasioFC.Domain.Repository
     {
         public Task<IEnumerable<Member>> GetAll();
 
-        public Member GetById(int id);
-
         public Task Add(Member member);
 
-        public Task Update(Member member);
+        public Task Update(int id, Member member);
 
         public Task Delete(int id);
     }

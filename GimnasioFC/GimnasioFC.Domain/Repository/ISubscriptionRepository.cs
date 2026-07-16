@@ -11,11 +11,9 @@ namespace GimnasioFC.Domain.Repository
     {
         public Task<IEnumerable<Subscription>> GetAll();
 
-        public Subscription GetById(int id);
-
         public Task Add(Subscription subscription);
 
-        public Task Update(Subscription subscription);
+        public Task Update(int id, Subscription subscription);
 
         public Task Delete(int id);
     }
