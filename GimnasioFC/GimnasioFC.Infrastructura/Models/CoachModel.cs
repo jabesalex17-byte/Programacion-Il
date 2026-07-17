@@ -16,5 +16,9 @@ namespace GimnasioFC.Infrastructura.Models
 
         public bool Active { get; set; }
 
+        public static implicit operator CoachModel(Coach v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

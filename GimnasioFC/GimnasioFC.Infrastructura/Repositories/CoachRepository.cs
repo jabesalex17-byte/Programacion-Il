@@ -1,9 +1,11 @@
-﻿using GimnasioFC.Domain.Repository;
+﻿using GimnasioFC.Application.Dtos.DtoCoach;
+using GimnasioFC.Application.Interfaces.Repository;
 using GimnasioFC.Infrastructura.Context;
 using GimnasioFC.Infrastructura.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +66,28 @@ namespace GimnasioFC.Infrastructura.Repositories
             });
         }
 
+        public async Task<Coach> GetCoachById(int id)
+        {
+            var coach = await _db.Coaches.AsNoTracking().FirstOrDefaultAsync(c => c.id == id);
+            if (coach == null)
+            {
+                return null;
+            }
+            var Ncoach = new Coach
+            {
+                FirstName = coach.FirstName,
+                LastName = coach.LastName,
+                Specialty = coach.Specialty,
+                Active = coach.Active,
+                Salary = coach.Salary,
+                Email = coach.Email,
+                PhoneNumber = coach.PhoneNumber,
+                Age = coach.Age,
+                id = coach.id
+            };
+            return Ncoach;
+
+        }
 
         public async Task UpdateCoach(int id, Coach coach)
         {
@@ -83,5 +107,6 @@ namespace GimnasioFC.Infrastructura.Repositories
             }
 
         }
+
     }
 }

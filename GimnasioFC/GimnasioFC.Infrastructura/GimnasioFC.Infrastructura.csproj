@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GimnasioFC.Application\GimnasioFC.Application.csproj" />
     <ProjectReference Include="..\GimnasioFC.Domain\GimnasioFC.Domain.csproj" />
   </ItemGroup>
 
