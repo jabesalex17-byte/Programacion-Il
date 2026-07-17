@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GimnasioFC.Application.Interfaces.Repository;
 using GimnasioFC.Domain.Entities;
-using GimnasioFC.Domain.Repository;
 using GimnasioFC.Infrastructura.Context;
 using Microsoft.EntityFrameworkCore;
 namespace GimnasioFC.Infrastructura.Repositories
@@ -63,6 +63,28 @@ namespace GimnasioFC.Infrastructura.Repositories
                 Email = e.Email,
                 PhoneNumber = e.PhoneNumber
             });
+        }
+
+        public async Task<Employee> GetEmployeeById(int id)
+        {
+            var employee = await _db.Employees.AsNoTracking().FirstOrDefaultAsync(e => e.id == id);
+            if (employee == null)
+            {
+                return null;
+            }
+            return new Employee
+            {
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                JobTitle = employee.JobTitle,
+                Salary = employee.Salary,
+                HireDate = employee.HireDate,
+                IsActive = employee.IsActive,
+                id = employee.id,
+                Age = employee.Age,
+                Email = employee.Email,
+                PhoneNumber = employee.PhoneNumber
+            };
         }
 
         public async Task UpdateEmployee(int id,Employee employee)

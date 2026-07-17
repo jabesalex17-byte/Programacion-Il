@@ -1,5 +1,5 @@
-﻿using GimnasioFC.Domain.Entities;
-using GimnasioFC.Domain.Repository;
+﻿using GimnasioFC.Application.Interfaces.Repository;
+using GimnasioFC.Domain.Entities;
 using GimnasioFC.Infrastructura.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -56,6 +56,24 @@ namespace GimnasioFC.Infrastructura.Repositories
                 MembershipId = s.MembershipId,
                 Id = s.Id
             });
+        }
+
+        public async Task<Subscription> GetById(int id)
+        {
+            var subscription = await _db.Subscriptions.AsNoTracking().FirstAsync(c => c.MembershipId == id);
+            if (subscription == null)
+            {
+                return null;
+            }
+            return new Subscription
+            {
+                Activa = subscription.Activa,
+                FechaFin = subscription.FechaFin,
+                FechaInicio = subscription.FechaInicio,
+                MemberId = subscription.MemberId,
+                MembershipId = subscription.MembershipId,
+                Id = subscription.Id
+            };
         }
 
         public async Task Update(int id,Subscription subscription)

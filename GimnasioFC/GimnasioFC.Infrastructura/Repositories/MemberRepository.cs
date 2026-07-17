@@ -1,4 +1,5 @@
-﻿using GimnasioFC.Domain.Repository;
+﻿
+using GimnasioFC.Application.Interfaces.Repository;
 using GimnasioFC.Infrastructura.Context;
 using GimnasioFC.Infrastructura.Models;
 using Microsoft.EntityFrameworkCore;
@@ -70,10 +71,29 @@ namespace GimnasioFC.Infrastructura.Repositories
 
         }
 
+        public async Task<Member> GetById(int id)
+        {
+            var member = await _db.Members.AsNoTracking().FirstOrDefaultAsync(m => m.id == id);
+            if (member == null) 
+            {
+                return null;
+            }
+            return new Member
+            {
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                Age = member.Age,
+                Email = member.Email,
+                PhoneNumber = member.PhoneNumber,
+                Active = member.Active,
+                RegistrationDate = member.RegistrationDate,
+                id = member.id
+            };
+        }
 
         public async Task Update(int id,Member member)
         {
-            var nMember = await _db.Members.FindAsync(id);
+            var nMember = await _db.Members.AsNoTracking().FirstAsync(c => c.id == id);
             if (nMember != null)
             {
                 nMember.FirstName = member.FirstName;
