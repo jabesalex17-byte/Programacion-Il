@@ -1,0 +1,11 @@
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\bin\Debug\net9.0\GimnasioFC.Domain.deps.json
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\bin\Debug\net9.0\GimnasioFC.Domain.dll
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\bin\Debug\net9.0\GimnasioFC.Domain.pdb
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.AssemblyInfoInputs.cache
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.AssemblyInfo.cs
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.csproj.CoreCompileInputs.cache
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.dll
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\refint\GimnasioFC.Domain.dll
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\GimnasioFC.Domain.pdb
+C:\Users\jabes\esta si\GimnasioFC\GimnasioFC.Domain\obj\Debug\net9.0\ref\GimnasioFC.Domain.dll
