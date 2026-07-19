@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.0" />
@@ -15,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClinicaFC.Application\ClinicaFC.Application.csproj" />
+    <ProjectReference Include="..\ClinicaFC.Domain\ClinicaFC.Domain.csproj" />
     <ProjectReference Include="..\ClinicaFC.Infraestructure\ClinicaFC.Infraestructure.csproj" />
   </ItemGroup>
 
