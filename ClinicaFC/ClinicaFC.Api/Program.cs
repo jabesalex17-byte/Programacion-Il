@@ -6,11 +6,7 @@ using ClinicaFC.Infraestructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 builder.Services.AddControllers();
-
-builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ClinicaFCDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -37,16 +33,12 @@ builder.Services.AddScoped<IConsultationServices, ConsultationService>();
 builder.Services.AddScoped<IDiagnosisServices, DiagnosisService>();
 builder.Services.AddScoped<IMedicationServices, MedicationService>();
 builder.Services.AddScoped<IPrescriptionServices, PrescriptionService>();
-
-
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
+app.MapSwagger();
 app.UseSwaggerUI();
-
 
 app.MapControllers();
 
